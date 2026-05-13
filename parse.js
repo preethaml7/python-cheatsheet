@@ -244,7 +244,7 @@ const AUDIO_2 =
 
 const MARIO = `<span class="hljs-keyword">import</span> pygame <span class="hljs-keyword">as</span> pg, dataclasses <span class="hljs-keyword">as</span> dc, enum, io, itertools, random <span class="hljs-keyword">as</span> r, urllib.request
 
-W, H, D = <span class="hljs-number">50</span>, <span class="hljs-number">50</span>, enum.Enum(<span class="hljs-string">'D'</span>, <span class="hljs-string">'n e s w'</span>)     <span class="hljs-comment"># Width, Height, Direction.</span>
+W, H, D = <span class="hljs-number">50</span>, <span class="hljs-number">50</span>, enum.Enum(<span class="hljs-string">'D'</span>, <span class="hljs-string">'n e s w'</span>)    <span class="hljs-comment"># Width, Height, Direction.</span>
 
 <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">main</span><span class="hljs-params">()</span>:</span>
     <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_screen</span><span class="hljs-params">()</span>:</span>
