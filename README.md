@@ -2760,29 +2760,29 @@ from PIL import Image
 ```
 
 ```python
-<Image> = Image.new('RGB', (width, height))   # Creates an image. Also `color=<tuple_of_ints>`.
-<Image> = Image.open(<path>)                  # Identifies format based on the file's contents.
-<Image> = <Image>.convert('<mode>')           # Converts the image to the new mode (see Modes).
-<Image>.save(<path>)                          # Also `quality=<int>` if extension is jpg/jpeg.
-<Image>.show()                                # Displays image in system's default preview app.
+<Image> = Image.new('RGB', (width, height))  # Creates an image. Also `color=<tuple_of_ints>`.
+<Image> = Image.open(<path>)                 # Identifies format based on the file's contents.
+<Image> = <Image>.convert('<mode>')          # Converts the image to the new mode (see Modes).
+<Image>.save(<path>)                         # Also `quality=<int>` if extension is jpg/jpeg.
+<Image>.show()                               # Displays image in system's default preview app.
 ```
 
 ```python
-<int/tup> = <Image>.getpixel((x, y))          # Returns the pixel's value, that is, its color.
-<ImgCore> = <Image>.getdata()                 # Returns a flattened view of the pixel values.
-<Image>.putpixel((x, y), <int/tuple>)         # Updates pixel's value. Clips passed integer/s.
-<Image>.putdata(<list/ImgCore>)               # Updates pixels with a copy of passed sequence.
-<Image>.paste(<Image>, (x, y))                # Draws passed image at the specified location.
+<int/tup> = <Image>.getpixel((x, y))         # Returns the pixel's value, that is, its color.
+<ImgCore> = <Image>.getdata()                # Returns a flattened view of the pixel values.
+<Image>.putpixel((x, y), <int/tuple>)        # Updates pixel's value. Clips passed integer/s.
+<Image>.putdata(<list/ImgCore>)              # Updates pixels with a copy of passed sequence.
+<Image>.paste(<Image>, (x, y))               # Draws passed image at the specified location.
 ```
 
 ```python
-<Image> = <Image>.filter(<Filter>)            # Accepts ImageFilter.BLUR/SHARPEN/FIND_EDGES/….
-<Image> = <Enhance>.enhance(<float>)          # E.g. `ImageEnhance.Contrast/Color/…(<Image>)`.
+<Image> = <Image>.filter(<Filter>)           # Accepts ImageFilter.BLUR/SHARPEN/FIND_EDGES/….
+<Image> = <Enhance>.enhance(<float>)         # E.g. `ImageEnhance.Contrast/Color/…(<Image>)`.
 ```
 
 ```python
-<array> = numpy.array(<Image>)                # Creates a 2d or 3d NumPy array from the image.
-<Image> = Image.fromarray(np.uint8(<array>))  # Use `<array>.clip(0, 255)` to clip the values.
+<array> = numpy.array(<Image>)               # Creates a 2d or 3d NumPy array from the image.
+<Image> = Image.fromarray(<array>)           # Clip values with np.uint8(<arr>.clip(0, 255)).
 ```
 
 ### Modes
@@ -2815,14 +2815,14 @@ img.show()
 ### Image Draw
 ```python
 from PIL import ImageDraw
-<Draw> = ImageDraw.Draw(<Image>)              # An object for adding 2D graphics to the image.
-<Draw>.point((x, y))                          # Draws a point. Accepts `fill=<int/tuple/str>`.
-<Draw>.line((x1, y1, x2, y2 [, ...]))         # To get anti-aliasing use <Img>.resize((w, h)).
-<Draw>.arc((x1, y1, x2, y2), deg1, deg2)      # Draws arc of an ellipse in clockwise direction.
-<Draw>.rectangle((x1, y1, x2, y2))            # Also rounded_rectangle() and regular_polygon().
-<Draw>.polygon((x1, y1, x2, y2, ...))         # The last point gets connected to the first one.
-<Draw>.ellipse((x1, y1, x2, y2))              # To rotate it use <Image>.rotate(anticlock_deg).
-<Draw>.text((x, y), <str>)                    # Accepts `font=ImageFont.truetype(path, size)`.
+<Draw> = ImageDraw.Draw(<Image>)             # An object for adding 2D graphics to the image.
+<Draw>.point((x, y))                         # Draws a point. Accepts `fill=<int/tuple/str>`.
+<Draw>.line((x1, y1, x2, y2 [, ...]))        # To get anti-aliasing use <Img>.resize((w, h)).
+<Draw>.arc((x1, y1, x2, y2), deg1, deg2)     # Draws arc of an ellipse in clockwise direction.
+<Draw>.rectangle((x1, y1, x2, y2))           # Also rounded_rectangle() and regular_polygon().
+<Draw>.polygon((x1, y1, x2, y2, ...))        # The last point gets connected to the first one.
+<Draw>.ellipse((x1, y1, x2, y2))             # To rotate it use <Image>.rotate(anticlock_deg).
+<Draw>.text((x, y), <str>)                   # Accepts `font=ImageFont.truetype(path, size)`.
 ```
 * **Pass `'fill=<color>'` to set primary color of the figure.**
 * **Pass `'width=<int>'` to set the width of lines or contours.**
@@ -2962,9 +2962,9 @@ import itertools as it, math, numpy as np, sounddevice
 
 def play_notes(notes, bpm=132, fs=44100, volume=0.1):
     beat_len  = 60/bpm * fs
-    get_pause = lambda n_beats: it.repeat(0, int(n_beats * beat_len))
+    get_pause = lambda beats: it.repeat(0, int(beats * beat_len))
     get_sinus = lambda i, hz: math.sin(i * 2 * math.pi * hz / fs) * volume
-    get_wave  = lambda hz, n_beats: (get_sinus(i, hz) for i in range(int(n_beats * beat_len)))
+    get_wave  = lambda hz, beats: (get_sinus(i, hz) for i in range(int(beats * beat_len)))
     get_hertz = lambda note: 440 * 2 ** ((int(note[:2]) - 69) / 12)
     get_beats = lambda note: 1/2 if '♩' in note else 1/4 if '♪' in note else 1
     get_samps = lambda n: get_wave(get_hertz(n), get_beats(n)) if n else get_pause(1/4)
@@ -3061,7 +3061,7 @@ import pygame as pg, dataclasses as dc, enum, io, itertools, random as r, urllib
 W, H, D = 50, 50, enum.Enum('D', 'n e s w')    # Width, Height, Direction.
 
 def main():
-    def get_screen():
+    def get_window():
         pg.init()
         return pg.display.set_mode((W*16, H*16))
     def get_images():
@@ -3078,9 +3078,9 @@ def main():
         return [get_rect(x, y) for x, y in borders + platforms]
     def get_rect(x, y):
         return pg.Rect(x*16, y*16, 16, 16)
-    run(get_screen(), get_images(), get_mario(), get_tiles())
+    run(get_window(), get_images(), get_mario(), get_tiles())
 
-def run(screen, images, mario, tiles):
+def run(window, images, mario, tiles):
     clock = pg.time.Clock()
     pressed = set()
     while not pg.event.get(pg.QUIT):
@@ -3089,14 +3089,14 @@ def run(screen, images, mario, tiles):
         pressed -= {e.key for e in pg.event.get(pg.KEYUP)}
         update_velocity(mario, tiles, pressed)
         update_position(mario, tiles)
-        draw(screen, images, mario, tiles)
+        draw(window, images, mario, tiles)
     pg.quit()
 
 def update_velocity(mario, tiles, pressed):
     mario.vx += 2 * ((pg.K_RIGHT in pressed) - (pg.K_LEFT in pressed))
     mario.vx += (mario.vx < 0) - (mario.vx > 0)
+    mario.vx = max(-4, min(4, mario.vx))
     mario.vy += 1 if is_airborne(mario, tiles) else (pg.K_UP in pressed) * -10
-    mario.vx, mario.vy = max(-5, min(5, mario.vx)), min(10, mario.vy)
 
 def update_position(mario, tiles):
     x, y = mario.rect.topleft
@@ -3117,14 +3117,14 @@ def stop_on_collision(vx, vy, bounds):
     return (0 if (D.w in bounds and vx < 0) or (D.e in bounds and vx > 0) else vx,
             0 if (D.n in bounds and vy < 0) or (D.s in bounds and vy > 0) else vy)
 
-def draw(screen, images, mario, tiles):
-    screen.fill((85, 168, 255))
+def draw(window, images, mario, tiles):
+    window.fill((85, 168, 255))
     mario.dir = mario.dir if mario.vx == 0 else D.w if mario.vx < 0 else D.e
     img_i = 4 if is_airborne(mario, tiles) else next(mario.img_i) if mario.vx else 6
-    screen.blit(images[img_i + ((mario.dir == D.w) * 9)], mario.rect)
+    window.blit(images[img_i + ((mario.dir == D.w) * 9)], mario.rect)
     for tile in tiles:
         is_border = tile.x in [0, (W-1)*16] or tile.y in [0, (H-1)*16]
-        screen.blit(images[18 if is_border else 19], tile)
+        window.blit(images[18 if is_border else 19], tile)
     pg.display.flip()
 
 if __name__ == '__main__':

@@ -247,7 +247,7 @@ const MARIO = `<span class="hljs-keyword">import</span> pygame <span class="hljs
 W, H, D = <span class="hljs-number">50</span>, <span class="hljs-number">50</span>, enum.Enum(<span class="hljs-string">'D'</span>, <span class="hljs-string">'n e s w'</span>)    <span class="hljs-comment"># Width, Height, Direction.</span>
 
 <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">main</span><span class="hljs-params">()</span>:</span>
-    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_screen</span><span class="hljs-params">()</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_window</span><span class="hljs-params">()</span>:</span>
         pg.init()
         <span class="hljs-keyword">return</span> pg.display.set_mode((W*<span class="hljs-number">16</span>, H*<span class="hljs-number">16</span>))
     <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_images</span><span class="hljs-params">()</span>:</span>
@@ -264,9 +264,9 @@ W, H, D = <span class="hljs-number">50</span>, <span class="hljs-number">50</spa
         <span class="hljs-keyword">return</span> [get_rect(x, y) <span class="hljs-keyword">for</span> x, y <span class="hljs-keyword">in</span> borders + platforms]
     <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_rect</span><span class="hljs-params">(x, y)</span>:</span>
         <span class="hljs-keyword">return</span> pg.Rect(x*<span class="hljs-number">16</span>, y*<span class="hljs-number">16</span>, <span class="hljs-number">16</span>, <span class="hljs-number">16</span>)
-    run(get_screen(), get_images(), get_mario(), get_tiles())
+    run(get_window(), get_images(), get_mario(), get_tiles())
 
-<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">run</span><span class="hljs-params">(screen, images, mario, tiles)</span>:</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">run</span><span class="hljs-params">(window, images, mario, tiles)</span>:</span>
     clock = pg.time.Clock()
     pressed = set()
     <span class="hljs-keyword">while</span> <span class="hljs-keyword">not</span> pg.event.get(pg.QUIT):
@@ -275,14 +275,14 @@ W, H, D = <span class="hljs-number">50</span>, <span class="hljs-number">50</spa
         pressed -= {e.key <span class="hljs-keyword">for</span> e <span class="hljs-keyword">in</span> pg.event.get(pg.KEYUP)}
         update_velocity(mario, tiles, pressed)
         update_position(mario, tiles)
-        draw(screen, images, mario, tiles)
+        draw(window, images, mario, tiles)
     pg.quit()
 
 <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">update_velocity</span><span class="hljs-params">(mario, tiles, pressed)</span>:</span>
     mario.vx += <span class="hljs-number">2</span> * ((pg.K_RIGHT <span class="hljs-keyword">in</span> pressed) - (pg.K_LEFT <span class="hljs-keyword">in</span> pressed))
     mario.vx += (mario.vx &lt; <span class="hljs-number">0</span>) - (mario.vx &gt; <span class="hljs-number">0</span>)
+    mario.vx = max(<span class="hljs-number">-4</span>, min(<span class="hljs-number">4</span>, mario.vx))
     mario.vy += <span class="hljs-number">1</span> <span class="hljs-keyword">if</span> is_airborne(mario, tiles) <span class="hljs-keyword">else</span> (pg.K_UP <span class="hljs-keyword">in</span> pressed) * <span class="hljs-number">-10</span>
-    mario.vx, mario.vy = max(<span class="hljs-number">-5</span>, min(<span class="hljs-number">5</span>, mario.vx)), min(<span class="hljs-number">10</span>, mario.vy)
 
 <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">update_position</span><span class="hljs-params">(mario, tiles)</span>:</span>
     x, y = mario.rect.topleft
@@ -303,14 +303,14 @@ W, H, D = <span class="hljs-number">50</span>, <span class="hljs-number">50</spa
     <span class="hljs-keyword">return</span> (<span class="hljs-number">0</span> <span class="hljs-keyword">if</span> (D.w <span class="hljs-keyword">in</span> bounds <span class="hljs-keyword">and</span> vx &lt; <span class="hljs-number">0</span>) <span class="hljs-keyword">or</span> (D.e <span class="hljs-keyword">in</span> bounds <span class="hljs-keyword">and</span> vx &gt; <span class="hljs-number">0</span>) <span class="hljs-keyword">else</span> vx,
             <span class="hljs-number">0</span> <span class="hljs-keyword">if</span> (D.n <span class="hljs-keyword">in</span> bounds <span class="hljs-keyword">and</span> vy &lt; <span class="hljs-number">0</span>) <span class="hljs-keyword">or</span> (D.s <span class="hljs-keyword">in</span> bounds <span class="hljs-keyword">and</span> vy &gt; <span class="hljs-number">0</span>) <span class="hljs-keyword">else</span> vy)
 
-<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">draw</span><span class="hljs-params">(screen, images, mario, tiles)</span>:</span>
-    screen.fill((<span class="hljs-number">85</span>, <span class="hljs-number">168</span>, <span class="hljs-number">255</span>))
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">draw</span><span class="hljs-params">(window, images, mario, tiles)</span>:</span>
+    window.fill((<span class="hljs-number">85</span>, <span class="hljs-number">168</span>, <span class="hljs-number">255</span>))
     mario.dir = mario.dir <span class="hljs-keyword">if</span> mario.vx == <span class="hljs-number">0</span> <span class="hljs-keyword">else</span> D.w <span class="hljs-keyword">if</span> mario.vx &lt; <span class="hljs-number">0</span> <span class="hljs-keyword">else</span> D.e
     img_i = <span class="hljs-number">4</span> <span class="hljs-keyword">if</span> is_airborne(mario, tiles) <span class="hljs-keyword">else</span> next(mario.img_i) <span class="hljs-keyword">if</span> mario.vx <span class="hljs-keyword">else</span> <span class="hljs-number">6</span>
-    screen.blit(images[img_i + ((mario.dir == D.w) * <span class="hljs-number">9</span>)], mario.rect)
+    window.blit(images[img_i + ((mario.dir == D.w) * <span class="hljs-number">9</span>)], mario.rect)
     <span class="hljs-keyword">for</span> tile <span class="hljs-keyword">in</span> tiles:
         is_border = tile.x <span class="hljs-keyword">in</span> [<span class="hljs-number">0</span>, (W-<span class="hljs-number">1</span>)*<span class="hljs-number">16</span>] <span class="hljs-keyword">or</span> tile.y <span class="hljs-keyword">in</span> [<span class="hljs-number">0</span>, (H-<span class="hljs-number">1</span>)*<span class="hljs-number">16</span>]
-        screen.blit(images[<span class="hljs-number">18</span> <span class="hljs-keyword">if</span> is_border <span class="hljs-keyword">else</span> <span class="hljs-number">19</span>], tile)
+        window.blit(images[<span class="hljs-number">18</span> <span class="hljs-keyword">if</span> is_border <span class="hljs-keyword">else</span> <span class="hljs-number">19</span>], tile)
     pg.display.flip()
 
 <span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">'__main__'</span>:

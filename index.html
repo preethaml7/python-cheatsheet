@@ -56,7 +56,7 @@
 
 <body style="margin-top: 17.1px">
   <header>
-    <aside>May 13, 2026</aside>
+    <aside>May 15, 2026</aside>
     <a href="https://gto76.github.io" rel="author">Jure Šorn</a>
   </header>
 
@@ -2264,23 +2264,23 @@ array_b = np.array([[<span class="hljs-number">0.1</span>,  <span class="hljs-nu
 <span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image
 </code></pre></div>
 
-<pre><code class="python language-python hljs">&lt;Image&gt; = Image.new(<span class="hljs-string">'RGB'</span>, (width, height))   <span class="hljs-comment"># Creates an image. Also `color=&lt;tuple_of_ints&gt;`.</span>
-&lt;Image&gt; = Image.open(&lt;path&gt;)                  <span class="hljs-comment"># Identifies format based on the file's contents.</span>
-&lt;Image&gt; = &lt;Image&gt;.convert(<span class="hljs-string">'&lt;mode&gt;'</span>)           <span class="hljs-comment"># Converts the image to the new mode (see Modes).</span>
-&lt;Image&gt;.save(&lt;path&gt;)                          <span class="hljs-comment"># Also `quality=&lt;int&gt;` if extension is jpg/jpeg.</span>
-&lt;Image&gt;.show()                                <span class="hljs-comment"># Displays image in system's default preview app.</span>
+<pre><code class="python language-python hljs">&lt;Image&gt; = Image.new(<span class="hljs-string">'RGB'</span>, (width, height))  <span class="hljs-comment"># Creates an image. Also `color=&lt;tuple_of_ints&gt;`.</span>
+&lt;Image&gt; = Image.open(&lt;path&gt;)                 <span class="hljs-comment"># Identifies format based on the file's contents.</span>
+&lt;Image&gt; = &lt;Image&gt;.convert(<span class="hljs-string">'&lt;mode&gt;'</span>)          <span class="hljs-comment"># Converts the image to the new mode (see Modes).</span>
+&lt;Image&gt;.save(&lt;path&gt;)                         <span class="hljs-comment"># Also `quality=&lt;int&gt;` if extension is jpg/jpeg.</span>
+&lt;Image&gt;.show()                               <span class="hljs-comment"># Displays image in system's default preview app.</span>
 </code></pre>
-<pre><code class="python language-python hljs">&lt;int/tup&gt; = &lt;Image&gt;.getpixel((x, y))          <span class="hljs-comment"># Returns the pixel's value, that is, its color.</span>
-&lt;ImgCore&gt; = &lt;Image&gt;.getdata()                 <span class="hljs-comment"># Returns a flattened view of the pixel values.</span>
-&lt;Image&gt;.putpixel((x, y), &lt;int/tuple&gt;)         <span class="hljs-comment"># Updates pixel's value. Clips passed integer/s.</span>
-&lt;Image&gt;.putdata(&lt;list/ImgCore&gt;)               <span class="hljs-comment"># Updates pixels with a copy of passed sequence.</span>
-&lt;Image&gt;.paste(&lt;Image&gt;, (x, y))                <span class="hljs-comment"># Draws passed image at the specified location.</span>
+<pre><code class="python language-python hljs">&lt;int/tup&gt; = &lt;Image&gt;.getpixel((x, y))         <span class="hljs-comment"># Returns the pixel's value, that is, its color.</span>
+&lt;ImgCore&gt; = &lt;Image&gt;.getdata()                <span class="hljs-comment"># Returns a flattened view of the pixel values.</span>
+&lt;Image&gt;.putpixel((x, y), &lt;int/tuple&gt;)        <span class="hljs-comment"># Updates pixel's value. Clips passed integer/s.</span>
+&lt;Image&gt;.putdata(&lt;list/ImgCore&gt;)              <span class="hljs-comment"># Updates pixels with a copy of passed sequence.</span>
+&lt;Image&gt;.paste(&lt;Image&gt;, (x, y))               <span class="hljs-comment"># Draws passed image at the specified location.</span>
 </code></pre>
-<pre><code class="python language-python hljs">&lt;Image&gt; = &lt;Image&gt;.filter(&lt;Filter&gt;)            <span class="hljs-comment"># Accepts ImageFilter.BLUR/SHARPEN/FIND_EDGES/….</span>
-&lt;Image&gt; = &lt;Enhance&gt;.enhance(&lt;float&gt;)          <span class="hljs-comment"># E.g. `ImageEnhance.Contrast/Color/…(&lt;Image&gt;)`.</span>
+<pre><code class="python language-python hljs">&lt;Image&gt; = &lt;Image&gt;.filter(&lt;Filter&gt;)           <span class="hljs-comment"># Accepts ImageFilter.BLUR/SHARPEN/FIND_EDGES/….</span>
+&lt;Image&gt; = &lt;Enhance&gt;.enhance(&lt;float&gt;)         <span class="hljs-comment"># E.g. `ImageEnhance.Contrast/Color/…(&lt;Image&gt;)`.</span>
 </code></pre>
-<pre><code class="python language-python hljs">&lt;array&gt; = numpy.array(&lt;Image&gt;)                <span class="hljs-comment"># Creates a 2d or 3d NumPy array from the image.</span>
-&lt;Image&gt; = Image.fromarray(np.uint8(&lt;array&gt;))  <span class="hljs-comment"># Use `&lt;array&gt;.clip(0, 255)` to clip the values.</span>
+<pre><code class="python language-python hljs">&lt;array&gt; = numpy.array(&lt;Image&gt;)               <span class="hljs-comment"># Creates a 2d or 3d NumPy array from the image.</span>
+&lt;Image&gt; = Image.fromarray(&lt;array&gt;)           <span class="hljs-comment"># Clip values with np.uint8(&lt;arr&gt;.clip(0, 255)).</span>
 </code></pre>
 <div><h3 id="modes-1">Modes</h3><ul>
 <li><strong><code class="python hljs"><span class="hljs-string">'L'</span></code> - Lightness (greyscale image). Each pixel is stored as an int between 0 and 255.</strong></li>
@@ -2306,14 +2306,14 @@ img.show()
 </code></pre></div>
 
 <div><h3 id="imagedraw">Image Draw</h3><pre><code class="python language-python hljs"><span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> ImageDraw
-&lt;Draw&gt; = ImageDraw.Draw(&lt;Image&gt;)              <span class="hljs-comment"># An object for adding 2D graphics to the image.</span>
-&lt;Draw&gt;.point((x, y))                          <span class="hljs-comment"># Draws a point. Accepts `fill=&lt;int/tuple/str&gt;`.</span>
-&lt;Draw&gt;.line((x1, y1, x2, y2 [, ...]))         <span class="hljs-comment"># To get anti-aliasing use &lt;Img&gt;.resize((w, h)).</span>
-&lt;Draw&gt;.arc((x1, y1, x2, y2), deg1, deg2)      <span class="hljs-comment"># Draws arc of an ellipse in clockwise direction.</span>
-&lt;Draw&gt;.rectangle((x1, y1, x2, y2))            <span class="hljs-comment"># Also rounded_rectangle() and regular_polygon().</span>
-&lt;Draw&gt;.polygon((x1, y1, x2, y2, ...))         <span class="hljs-comment"># The last point gets connected to the first one.</span>
-&lt;Draw&gt;.ellipse((x1, y1, x2, y2))              <span class="hljs-comment"># To rotate it use &lt;Image&gt;.rotate(anticlock_deg).</span>
-&lt;Draw&gt;.text((x, y), &lt;str&gt;)                    <span class="hljs-comment"># Accepts `font=ImageFont.truetype(path, size)`.</span>
+&lt;Draw&gt; = ImageDraw.Draw(&lt;Image&gt;)             <span class="hljs-comment"># An object for adding 2D graphics to the image.</span>
+&lt;Draw&gt;.point((x, y))                         <span class="hljs-comment"># Draws a point. Accepts `fill=&lt;int/tuple/str&gt;`.</span>
+&lt;Draw&gt;.line((x1, y1, x2, y2 [, ...]))        <span class="hljs-comment"># To get anti-aliasing use &lt;Img&gt;.resize((w, h)).</span>
+&lt;Draw&gt;.arc((x1, y1, x2, y2), deg1, deg2)     <span class="hljs-comment"># Draws arc of an ellipse in clockwise direction.</span>
+&lt;Draw&gt;.rectangle((x1, y1, x2, y2))           <span class="hljs-comment"># Also rounded_rectangle() and regular_polygon().</span>
+&lt;Draw&gt;.polygon((x1, y1, x2, y2, ...))        <span class="hljs-comment"># The last point gets connected to the first one.</span>
+&lt;Draw&gt;.ellipse((x1, y1, x2, y2))             <span class="hljs-comment"># To rotate it use &lt;Image&gt;.rotate(anticlock_deg).</span>
+&lt;Draw&gt;.text((x, y), &lt;str&gt;)                   <span class="hljs-comment"># Accepts `font=ImageFont.truetype(path, size)`.</span>
 </code></pre></div>
 
 <ul>
@@ -2426,9 +2426,9 @@ sounddevice.wait()
 
 <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">play_notes</span><span class="hljs-params">(notes, bpm=<span class="hljs-number">132</span>, fs=<span class="hljs-number">44100</span>, volume=<span class="hljs-number">0.1</span>)</span>:</span>
     beat_len  = <span class="hljs-number">60</span>/bpm * fs
-    get_pause = <span class="hljs-keyword">lambda</span> n_beats: it.repeat(<span class="hljs-number">0</span>, int(n_beats * beat_len))
+    get_pause = <span class="hljs-keyword">lambda</span> beats: it.repeat(<span class="hljs-number">0</span>, int(beats * beat_len))
     get_sinus = <span class="hljs-keyword">lambda</span> i, hz: math.sin(i * <span class="hljs-number">2</span> * math.pi * hz / fs) * volume
-    get_wave  = <span class="hljs-keyword">lambda</span> hz, n_beats: (get_sinus(i, hz) <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(int(n_beats * beat_len)))
+    get_wave  = <span class="hljs-keyword">lambda</span> hz, beats: (get_sinus(i, hz) <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(int(beats * beat_len)))
     get_hertz = <span class="hljs-keyword">lambda</span> note: <span class="hljs-number">440</span> * <span class="hljs-number">2</span> ** ((int(note[:<span class="hljs-number">2</span>]) - <span class="hljs-number">69</span>) / <span class="hljs-number">12</span>)
     get_beats = <span class="hljs-keyword">lambda</span> note: <span class="hljs-number">1</span>/<span class="hljs-number">2</span> <span class="hljs-keyword">if</span> <span class="hljs-string">'♩'</span> <span class="hljs-keyword">in</span> note <span class="hljs-keyword">else</span> <span class="hljs-number">1</span>/<span class="hljs-number">4</span> <span class="hljs-keyword">if</span> <span class="hljs-string">'♪'</span> <span class="hljs-keyword">in</span> note <span class="hljs-keyword">else</span> <span class="hljs-number">1</span>
     get_samps = <span class="hljs-keyword">lambda</span> n: get_wave(get_hertz(n), get_beats(n)) <span class="hljs-keyword">if</span> n <span class="hljs-keyword">else</span> get_pause(<span class="hljs-number">1</span>/<span class="hljs-number">4</span>)
@@ -2504,7 +2504,7 @@ rect(&lt;Surf&gt;, color, &lt;Rect&gt;, width=<span class="hljs-number">0</span>
 W, H, D = <span class="hljs-number">50</span>, <span class="hljs-number">50</span>, enum.Enum(<span class="hljs-string">'D'</span>, <span class="hljs-string">'n e s w'</span>)    <span class="hljs-comment"># Width, Height, Direction.</span>
 
 <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">main</span><span class="hljs-params">()</span>:</span>
-    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_screen</span><span class="hljs-params">()</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_window</span><span class="hljs-params">()</span>:</span>
         pg.init()
         <span class="hljs-keyword">return</span> pg.display.set_mode((W*<span class="hljs-number">16</span>, H*<span class="hljs-number">16</span>))
     <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_images</span><span class="hljs-params">()</span>:</span>
@@ -2521,9 +2521,9 @@ W, H, D = <span class="hljs-number">50</span>, <span class="hljs-number">50</spa
         <span class="hljs-keyword">return</span> [get_rect(x, y) <span class="hljs-keyword">for</span> x, y <span class="hljs-keyword">in</span> borders + platforms]
     <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_rect</span><span class="hljs-params">(x, y)</span>:</span>
         <span class="hljs-keyword">return</span> pg.Rect(x*<span class="hljs-number">16</span>, y*<span class="hljs-number">16</span>, <span class="hljs-number">16</span>, <span class="hljs-number">16</span>)
-    run(get_screen(), get_images(), get_mario(), get_tiles())
+    run(get_window(), get_images(), get_mario(), get_tiles())
 
-<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">run</span><span class="hljs-params">(screen, images, mario, tiles)</span>:</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">run</span><span class="hljs-params">(window, images, mario, tiles)</span>:</span>
     clock = pg.time.Clock()
     pressed = set()
     <span class="hljs-keyword">while</span> <span class="hljs-keyword">not</span> pg.event.get(pg.QUIT):
@@ -2532,14 +2532,14 @@ W, H, D = <span class="hljs-number">50</span>, <span class="hljs-number">50</spa
         pressed -= {e.key <span class="hljs-keyword">for</span> e <span class="hljs-keyword">in</span> pg.event.get(pg.KEYUP)}
         update_velocity(mario, tiles, pressed)
         update_position(mario, tiles)
-        draw(screen, images, mario, tiles)
+        draw(window, images, mario, tiles)
     pg.quit()
 
 <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">update_velocity</span><span class="hljs-params">(mario, tiles, pressed)</span>:</span>
     mario.vx += <span class="hljs-number">2</span> * ((pg.K_RIGHT <span class="hljs-keyword">in</span> pressed) - (pg.K_LEFT <span class="hljs-keyword">in</span> pressed))
     mario.vx += (mario.vx &lt; <span class="hljs-number">0</span>) - (mario.vx &gt; <span class="hljs-number">0</span>)
+    mario.vx = max(<span class="hljs-number">-4</span>, min(<span class="hljs-number">4</span>, mario.vx))
     mario.vy += <span class="hljs-number">1</span> <span class="hljs-keyword">if</span> is_airborne(mario, tiles) <span class="hljs-keyword">else</span> (pg.K_UP <span class="hljs-keyword">in</span> pressed) * <span class="hljs-number">-10</span>
-    mario.vx, mario.vy = max(<span class="hljs-number">-5</span>, min(<span class="hljs-number">5</span>, mario.vx)), min(<span class="hljs-number">10</span>, mario.vy)
 
 <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">update_position</span><span class="hljs-params">(mario, tiles)</span>:</span>
     x, y = mario.rect.topleft
@@ -2560,14 +2560,14 @@ W, H, D = <span class="hljs-number">50</span>, <span class="hljs-number">50</spa
     <span class="hljs-keyword">return</span> (<span class="hljs-number">0</span> <span class="hljs-keyword">if</span> (D.w <span class="hljs-keyword">in</span> bounds <span class="hljs-keyword">and</span> vx &lt; <span class="hljs-number">0</span>) <span class="hljs-keyword">or</span> (D.e <span class="hljs-keyword">in</span> bounds <span class="hljs-keyword">and</span> vx &gt; <span class="hljs-number">0</span>) <span class="hljs-keyword">else</span> vx,
             <span class="hljs-number">0</span> <span class="hljs-keyword">if</span> (D.n <span class="hljs-keyword">in</span> bounds <span class="hljs-keyword">and</span> vy &lt; <span class="hljs-number">0</span>) <span class="hljs-keyword">or</span> (D.s <span class="hljs-keyword">in</span> bounds <span class="hljs-keyword">and</span> vy &gt; <span class="hljs-number">0</span>) <span class="hljs-keyword">else</span> vy)
 
-<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">draw</span><span class="hljs-params">(screen, images, mario, tiles)</span>:</span>
-    screen.fill((<span class="hljs-number">85</span>, <span class="hljs-number">168</span>, <span class="hljs-number">255</span>))
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">draw</span><span class="hljs-params">(window, images, mario, tiles)</span>:</span>
+    window.fill((<span class="hljs-number">85</span>, <span class="hljs-number">168</span>, <span class="hljs-number">255</span>))
     mario.dir = mario.dir <span class="hljs-keyword">if</span> mario.vx == <span class="hljs-number">0</span> <span class="hljs-keyword">else</span> D.w <span class="hljs-keyword">if</span> mario.vx &lt; <span class="hljs-number">0</span> <span class="hljs-keyword">else</span> D.e
     img_i = <span class="hljs-number">4</span> <span class="hljs-keyword">if</span> is_airborne(mario, tiles) <span class="hljs-keyword">else</span> next(mario.img_i) <span class="hljs-keyword">if</span> mario.vx <span class="hljs-keyword">else</span> <span class="hljs-number">6</span>
-    screen.blit(images[img_i + ((mario.dir == D.w) * <span class="hljs-number">9</span>)], mario.rect)
+    window.blit(images[img_i + ((mario.dir == D.w) * <span class="hljs-number">9</span>)], mario.rect)
     <span class="hljs-keyword">for</span> tile <span class="hljs-keyword">in</span> tiles:
         is_border = tile.x <span class="hljs-keyword">in</span> [<span class="hljs-number">0</span>, (W-<span class="hljs-number">1</span>)*<span class="hljs-number">16</span>] <span class="hljs-keyword">or</span> tile.y <span class="hljs-keyword">in</span> [<span class="hljs-number">0</span>, (H-<span class="hljs-number">1</span>)*<span class="hljs-number">16</span>]
-        screen.blit(images[<span class="hljs-number">18</span> <span class="hljs-keyword">if</span> is_border <span class="hljs-keyword">else</span> <span class="hljs-number">19</span>], tile)
+        window.blit(images[<span class="hljs-number">18</span> <span class="hljs-keyword">if</span> is_border <span class="hljs-keyword">else</span> <span class="hljs-number">19</span>], tile)
     pg.display.flip()
 
 <span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">'__main__'</span>:
@@ -2935,7 +2935,7 @@ $ deactivate                   <span class="hljs-comment"># Deactivates the acti
  
 
   <footer>
-    <aside>May 13, 2026</aside>
+    <aside>May 15, 2026</aside>
     <a href="https://gto76.github.io" rel="author">Jure Šorn</a>
   </footer>
 
